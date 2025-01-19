@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MetaPepe Nerd ($MPN)</title>
+  <title>Elder Pepe ($EPEPE)</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -13,12 +13,12 @@
       color: #FFF;
     }
     h1, h2 {
-      color: #00FF00;
+      color: #FFD700; /* Dorato per rappresentare saggezza */
       text-shadow: 2px 2px 4px #000;
       margin-top: 20px;
       padding: 10px;
       background: rgba(0, 0, 0, 0.7);
-      border: 2px solid #00FF00;
+      border: 2px solid #FFD700;
       display: inline-block;
       border-radius: 5px;
     }
@@ -35,17 +35,21 @@
       margin: 20px auto;
       padding: 20px;
       background: rgba(0, 0, 0, 0.85);
-      border: 2px solid #00FF00;
+      border: 2px solid #FFD700;
       border-radius: 10px;
       max-width: 600px;
     }
     a {
-      color: #00FF00;
+      color: #FFD700;
       text-decoration: none;
       font-weight: bold;
     }
+    img {
+      margin: 20px 0;
+      border-radius: 10px;
+    }
     button {
-      background-color: #00FF00;
+      background-color: #FFD700;
       color: #000;
       padding: 10px 20px;
       border: none;
@@ -54,40 +58,30 @@
       cursor: pointer;
     }
     button:hover {
-      background-color: #009900;
-    }
-    iframe {
-      margin-top: 20px;
-      width: 100%;
-      height: 400px;
-      border: none;
-    }
-    img {
-      margin: 20px 0;
-      border-radius: 10px;
+      background-color: #E6B800;
     }
   </style>
 </head>
 <body>
-  <h1>MetaPepe Nerd ($MPN)</h1>
+  <h1>Elder Pepe ($EPEPE)</h1>
   <p class="description">
-    La meme coin che unisce la cultura nerd al divertimento del metaverso!  
-    MetaPepe Nerd è più di una cripto: è una rivoluzione digitale pensata per la community.
+    Elder Pepe è più di una moneta: è un simbolo di saggezza, esperienza e riflessione.  
+    Unisciti alla rivoluzione che celebra la bellezza della maturità.
   </p>
   
-  <img src="images/logo.png" alt="MetaPepe Nerd Logo" width="300">
+  <img src="images/elder_pepe.png" alt="Elder Pepe Logo" width="300">
 
   <!-- Sezione Tokenomics -->
   <div class="section">
     <h2>Tokenomics</h2>
-    <p>Total Supply: 1 Trillion $MPN</p>
+    <p>Total Supply: 1 Trillion $EPEPE</p>
     <p>
       - Community: 50%<br>
       - Liquidità: 30%<br>
       - Team: 10%<br>
       - Marketing: 10%
     </p>
-    <a href="https://raw.githubusercontent.com/mpepe34/METAPEPE-NERD-WEBSITE-/main/Documents/MetaPepe_Tokenomics_Structured.pdf" target="_blank">Scarica il PDF della Tokenomics</a>
+    <a href="https://raw.githubusercontent.com/mpepe34/METAPEPE-NERD-WEBSITE-/main/Documents/ElderPepe_Tokenomics.pdf" target="_blank">Scarica il PDF della Tokenomics</a>
   </div>
 
   <!-- Sezione Roadmap -->
@@ -96,52 +90,23 @@
     <ul style="text-align: left;">
       <li><strong>Fase 1:</strong> Lancio e creazione della community</li>
       <li><strong>Fase 2:</strong> Airdrop e listing su CoinGecko</li>
-      <li><strong>Fase 3:</strong> Lancio NFT e integrazione P2E</li>
-      <li><strong>Fase 4:</strong> Espansione con staking e burning</li>
+      <li><strong>Fase 3:</strong> Prevendita e lancio NFT</li>
+      <li><strong>Fase 4:</strong> Espansione e staking per i possessori</li>
     </ul>
   </div>
 
-  <!-- Sezione Mint NFT -->
+  <!-- Sezione Elder Pepe -->
   <div class="section">
-    <h2>Mint MetaPepe Nerd NFT</h2>
-    <p>Conia il tuo NFT unico di MetaPepe Nerd e unisciti alla nostra community esclusiva!</p>
-    <p>Il mint sarà disponibile dal <strong>24 gennaio 2025 alle 11:30</strong>. Torna presto per coniare il tuo NFT esclusivo!</p>
-    <button onclick="mintNFT()">Conia il tuo NFT</button>
-    <p id="status"></p>
+    <h2>Chi è Elder Pepe?</h2>
+    <p>Elder Pepe è l'incarnazione della saggezza e dell'esperienza, un simbolo di serenità e conoscenza.  
+      Con il suo aspetto tranquillo e il suo abbigliamento classico, rappresenta la bellezza del viaggio della vita.</p>
+    <img src="images/elder_pepe_full.png" alt="Elder Pepe Full Body" width="300">
   </div>
 
   <!-- Sezione Acquista -->
   <div class="section">
-    <h2>Acquista $MPN</h2>
+    <h2>Acquista $EPEPE</h2>
     <p><a href="https://app.uniswap.org/#/swap?inputCurrency=0x7ae5421fff78bcb973de7e6b8217be6748c21c9a&chain=polygon" target="_blank">Compra ora su Uniswap</a></p>
   </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/@thirdweb-dev/sdk@latest/dist/browser.umd.min.js"></script>
-  <script>
-    const contractAddress = "0xe956a9B458086B08eCD0061445bdC0A982E011dB"; // Indirizzo del contratto NFT
-    const sdk = new thirdweb.ThirdwebSDK("polygon");
-
-    async function mintNFT() {
-      try {
-        const contract = await sdk.getContract(contractAddress, "nft-drop");
-        console.log("Contratto caricato correttamente:", contract);
-
-        const address = (await sdk.wallet.connect()).address;
-        console.log("Wallet connesso:", address);
-
-        const tx = await contract.call("claim", 1); // Mint 1 NFT
-        console.log("Transazione completata:", tx);
-
-        document.getElementById("status").innerText = `NFT Mintato con successo! TX: ${tx.receipt.transactionHash}`;
-      } catch (error) {
-        if (error.message.includes("Claim phase has not started")) {
-          document.getElementById("status").innerText = "Il mint non è ancora disponibile. Torna il 24 gennaio 2025 alle 11:30.";
-        } else {
-          document.getElementById("status").innerText = "Errore durante il mint.";
-        }
-        console.error("Errore durante il mint:", error);
-      }
-    }
-  </script>
 </body>
 </html>
