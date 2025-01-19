@@ -68,6 +68,22 @@
       color: #FFF;
       font-size: 0.9em;
     }
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 1.5em;
+      }
+      p.description {
+        font-size: 1em;
+      }
+      .section {
+        padding: 10px;
+        margin: 10px auto;
+      }
+    }
+    .dark-mode {
+      background: #000;
+      color: #FFF;
+    }
   </style>
 </head>
 <body>
@@ -89,6 +105,12 @@
     </p>
   </div>
 
+  <!-- Timer per Mint NFT -->
+  <div class="section">
+    <h2>Mint Countdown</h2>
+    <p id="countdown"></p>
+  </div>
+
   <!-- Sezione Tokenomics -->
   <div class="section">
     <h2>Tokenomics</h2>
@@ -99,8 +121,14 @@
       - Team: 10%<br>
       - Marketing: 10%
     </p>
-    <!-- Link per scaricare la Tokenomics -->
     <a href="https://github.com/mpepe34/METAPEPE-NERD-WEBSITE-/raw/main/Documents/ElderPepe_Tokenomics.pdf" download>Scarica la Tokenomics</a>
+  </div>
+
+  <!-- Sezione Tokencomics -->
+  <div class="section">
+    <h2>Scarica il Tokencomics</h2>
+    <p>Scopri i dettagli completi del progetto Elder Pepe con il nostro Tokencomics ufficiale.</p>
+    <a href="https://github.com/mpepe34/METAPEPE-NERD-WEBSITE-/raw/main/Documents/ElderPepe_Tokencomics.pdf" download>Scarica il PDF del Tokencomics</a>
   </div>
 
   <!-- Sezione Utility -->
@@ -126,23 +154,6 @@
     </ul>
   </div>
 
-  <!-- Sezione Domande Frequenti -->
-  <div class="section">
-    <h2>Domande Frequenti</h2>
-    <ul style="text-align: left;">
-      <li><strong>Cos'è Elder Pepe?</strong> Elder Pepe è una meme coin basata su saggezza e divertimento, con utilità reale come staking e NFT.</li>
-      <li><strong>Come posso acquistare $ELDER?</strong> Partecipa alla prevendita o acquista tramite i nostri partner (link in arrivo).</li>
-      <li><strong>Cosa sono gli NFT di Elder Pepe?</strong> Sono oggetti digitali unici che rappresentano la saggezza di Elder Pepe.</li>
-    </ul>
-  </div>
-
-  <!-- Sezione Mint NFT -->
-  <div class="section">
-    <h2>Mint Elder Pepe NFT</h2>
-    <p>Il minting degli NFT è disponibile dal 1° febbraio 2025.</p>
-    <button onclick="window.open('https://thirdweb.com/polygon/0x40Fc6CA47024643c20080103505EC9C1a97157b4/nfts')">Conia il tuo NFT</button>
-  </div>
-
   <!-- Sezione Social -->
   <div class="section">
     <h2>Unisciti alla nostra community</h2>
@@ -154,6 +165,35 @@
   <!-- Footer -->
   <footer>
     <p>&copy; 2025 Elder Pepe Project. Tutti i diritti riservati. | Disclaimer: Questo sito è a scopo informativo e non rappresenta un consiglio finanziario.</p>
+    <button id="darkModeToggle">Modalità Notte</button>
   </footer>
+
+  <!-- Script per il Timer -->
+  <script>
+    const countDownDate = new Date("2025-02-01T00:00:00").getTime();
+    const countdownElement = document.getElementById("countdown");
+
+    const timer = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = countDownDate - now;
+
+      if (distance < 0) {
+        clearInterval(timer);
+        countdownElement.innerHTML = "Mint NFT ora disponibile!";
+      } else {
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        countdownElement.innerHTML = `Mint disponibile in: ${days}g ${hours}h ${minutes}m ${seconds}s`;
+      }
+    }, 1000);
+
+    // Modalità Notte
+    document.getElementById("darkModeToggle").addEventListener("click", () => {
+      document.body.classList.toggle("dark-mode");
+    });
+  </script>
 </body>
 </html>
