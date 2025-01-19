@@ -74,6 +74,31 @@
       font-weight: bold;
       margin-top: 10px;
     }
+    .faq-question {
+      text-align: left;
+      margin: 10px;
+      cursor: pointer;
+      color: #00FF00;
+      font-weight: bold;
+    }
+    .faq-answer {
+      display: none;
+      margin: 10px;
+      text-align: left;
+      color: #FFF;
+      font-size: 0.9em;
+    }
+    .social-links a {
+      margin: 5px;
+      padding: 10px;
+      color: #FFF;
+      background: #00FF00;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+    .social-links a:hover {
+      background: #008000;
+    }
   </style>
 </head>
 <body>
@@ -82,7 +107,7 @@
     La meme coin che unisce la saggezza e l'esperienza al futuro della blockchain!  
     Elder Pepe è più di una cripto: è un simbolo di connessione tra passato e futuro.
   </p>
-  
+
   <!-- Prima immagine principale -->
   <img src="https://raw.githubusercontent.com/mpepe34/METAPEPE-NERD-WEBSITE-/main/Images/file-HRz4SN6hm5C2hkqiq5mp25.webp" alt="Elder Pepe Logo" width="300">
 
@@ -127,6 +152,21 @@
     <a href="https://github.com/mpepe34/METAPEPE-NERD-WEBSITE-/raw/main/Documents/ElderPepe_Tokencomics.pdf" download>Scarica il PDF del Tokencomics</a>
   </div>
 
+  <!-- Sezione FAQ -->
+  <div class="section">
+    <h2>FAQ</h2>
+    <div class="faq">
+      <div class="faq-question">Cos'è Elder Pepe?</div>
+      <div class="faq-answer">Elder Pepe è una meme coin che unisce il divertimento della cultura dei meme con l'innovazione della blockchain.</div>
+      <div class="faq-question">Come posso acquistare $ELDER?</div>
+      <div class="faq-answer">Presto disponibile su piattaforme di prevendita ufficiali. Rimani aggiornato!</div>
+      <div class="faq-question">Come funziona lo staking?</div>
+      <div class="faq-answer">Puoi stakare i tuoi $ELDER direttamente sul nostro sito e guadagnare ricompense giornaliere.</div>
+      <div class="faq-question">Quando inizia il Mint degli NFT?</div>
+      <div class="faq-answer">Il Mint inizia il 1° febbraio 2025. Controlla il timer per maggiori informazioni!</div>
+    </div>
+  </div>
+
   <!-- Sezione Staking -->
   <div class="section" id="staking">
     <h2>Programma di Staking</h2>
@@ -135,6 +175,14 @@
     <button id="stake-button">Staka Token</button>
     <button id="unstake-button">Ritira Token</button>
     <p id="staking-info">Caricamento informazioni sullo staking...</p>
+  </div>
+
+  <!-- Sezione Social -->
+  <div class="section social-links">
+    <h2>Seguici sui Social</h2>
+    <a href="https://twitter.com" target="_blank">Twitter</a>
+    <a href="https://discord.com" target="_blank">Discord</a>
+    <a href="https://t.me" target="_blank">Telegram</a>
   </div>
 
   <!-- Footer -->
@@ -163,53 +211,16 @@
         countdownElement.innerHTML = `Mint disponibile in: ${days}g ${hours}h ${minutes}m ${seconds}s`;
       }
     }, 1000);
+
+    // FAQ toggle
+    document.querySelectorAll('.faq-question').forEach(question => {
+      question.addEventListener('click', () => {
+        const answer = question.nextElementSibling;
+        answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+      });
+    });
   </script>
 
   <!-- Script per lo Staking -->
   <script type="module">
-    import { ThirdwebSDK } from "https://cdn.jsdelivr.net/npm/@thirdweb-dev/sdk@latest/dist/browser.esm.js";
-
-    const sdk = new ThirdwebSDK("polygon");
-    const stakingContractAddress = "0x0a082ac78a8DF98d1F8F567e71321B3d1B36e8D1"; // Indirizzo del contratto di staking
-    const stakingContract = await sdk.getContract(stakingContractAddress);
-
-    const stakeButton = document.getElementById("stake-button");
-    const unstakeButton = document.getElementById("unstake-button");
-    const stakeAmountInput = document.getElementById("stake-amount");
-    const stakingInfo = document.getElementById("staking-info");
-
-    stakeButton.addEventListener("click", async () => {
-      const amount = stakeAmountInput.value;
-      try {
-        await stakingContract.call("stake", [amount]);
-        alert("Staking effettuato con successo!");
-        updateStakingInfo();
-      } catch (error) {
-        alert("Errore durante lo staking.");
-      }
-    });
-
-    unstakeButton.addEventListener("click", async () => {
-      try {
-        await stakingContract.call("withdraw");
-        alert("Token ritirati con successo!");
-        updateStakingInfo();
-      } catch (error) {
-        alert("Errore durante il ritiro.");
-      }
-    });
-
-    async function updateStakingInfo() {
-      try {
-        const account = await sdk.wallet.getAddress();
-        const stakeInfo = await stakingContract.call("getStakeInfo", [account]);
-        stakingInfo.textContent = `Token stakati: ${stakeInfo[0]} | Ricompense accumulate: ${stakeInfo[1]}`;
-      } catch (error) {
-        stakingInfo.textContent = "Errore nel caricamento delle informazioni.";
-      }
-    }
-
-    updateStakingInfo();
-  </script>
-</body>
-</html>
+    import { ThirdwebSDK } from "https
