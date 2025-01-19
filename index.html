@@ -127,6 +127,16 @@
     <a href="https://github.com/mpepe34/METAPEPE-NERD-WEBSITE-/raw/main/Documents/ElderPepe_Tokencomics.pdf" download>Scarica il PDF del Tokencomics</a>
   </div>
 
+  <!-- Sezione Staking -->
+  <div class="section" id="staking">
+    <h2>Programma di Staking</h2>
+    <p>Inserisci l'importo dei token $ELDER da stakare:</p>
+    <input type="number" id="stake-amount" placeholder="Inserisci importo">
+    <button id="stake-button">Staka Token</button>
+    <button id="unstake-button">Ritira Token</button>
+    <p id="staking-info">Caricamento informazioni sullo staking...</p>
+  </div>
+
   <!-- Footer -->
   <footer>
     <p>&copy; 2025 Elder Pepe Project. Tutti i diritti riservati. | Disclaimer: Questo sito è a scopo informativo e non rappresenta un consiglio finanziario.</p>
@@ -153,6 +163,53 @@
         countdownElement.innerHTML = `Mint disponibile in: ${days}g ${hours}h ${minutes}m ${seconds}s`;
       }
     }, 1000);
+  </script>
+
+  <!-- Script per lo Staking -->
+  <script type="module">
+    import { ThirdwebSDK } from "https://cdn.jsdelivr.net/npm/@thirdweb-dev/sdk@latest/dist/browser.esm.js";
+
+    const sdk = new ThirdwebSDK("polygon");
+    const stakingContractAddress = "0x0a082ac78a8DF98d1F8F567e71321B3d1B36e8D1"; // Indirizzo del contratto di staking
+    const stakingContract = await sdk.getContract(stakingContractAddress);
+
+    const stakeButton = document.getElementById("stake-button");
+    const unstakeButton = document.getElementById("unstake-button");
+    const stakeAmountInput = document.getElementById("stake-amount");
+    const stakingInfo = document.getElementById("staking-info");
+
+    stakeButton.addEventListener("click", async () => {
+      const amount = stakeAmountInput.value;
+      try {
+        await stakingContract.call("stake", [amount]);
+        alert("Staking effettuato con successo!");
+        updateStakingInfo();
+      } catch (error) {
+        alert("Errore durante lo staking.");
+      }
+    });
+
+    unstakeButton.addEventListener("click", async () => {
+      try {
+        await stakingContract.call("withdraw");
+        alert("Token ritirati con successo!");
+        updateStakingInfo();
+      } catch (error) {
+        alert("Errore durante il ritiro.");
+      }
+    });
+
+    async function updateStakingInfo() {
+      try {
+        const account = await sdk.wallet.getAddress();
+        const stakeInfo = await stakingContract.call("getStakeInfo", [account]);
+        stakingInfo.textContent = `Token stakati: ${stakeInfo[0]} | Ricompense accumulate: ${stakeInfo[1]}`;
+      } catch (error) {
+        stakingInfo.textContent = "Errore nel caricamento delle informazioni.";
+      }
+    }
+
+    updateStakingInfo();
   </script>
 </body>
 </html>
