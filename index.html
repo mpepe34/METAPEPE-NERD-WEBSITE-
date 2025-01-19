@@ -3,156 +3,119 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Elder Pepe ($ELDER)</title>
+  <title>Elder Pepe Staking</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       text-align: center;
-      background: url('https://raw.githubusercontent.com/mpepe34/METAPEPE-NERD-WEBSITE-/main/Images/file-HRz4SN6hm5C2hkqiq5mp25.webp') no-repeat center center fixed;
+      background: url('https://raw.githubusercontent.com/mpepe34/METAPEPE-NERD-WEBSITE-/main/images/elder_pepe_bg.webp') no-repeat center center fixed;
       background-size: cover;
       color: #FFF;
     }
     h1 {
       color: #00FF00;
       text-shadow: 2px 2px 4px #000;
-      margin-top: 20px;
-      padding: 10px;
-      background: rgba(0, 0, 0, 0.7);
-      border: 2px solid #00FF00;
-      display: inline-block;
-      border-radius: 5px;
-    }
-    p.description {
-      font-size: 1.2em;
-      font-weight: bold;
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
-      background: rgba(0, 0, 0, 0.7);
-      padding: 10px;
-      display: inline-block;
-      border-radius: 5px;
     }
     .section {
       margin: 20px auto;
       padding: 20px;
-      background: rgba(0, 0, 0, 0.85);
+      background: rgba(0, 0, 0, 0.8);
       border: 2px solid #00FF00;
       border-radius: 10px;
       max-width: 600px;
     }
-    a {
-      color: #00FF00;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    img {
-      margin: 20px 0;
-      border-radius: 10px;
-    }
     button {
+      padding: 10px 20px;
+      margin: 10px;
+      border: none;
+      border-radius: 5px;
       background-color: #00FF00;
       color: #000;
       font-weight: bold;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
       cursor: pointer;
     }
-    button:disabled {
-      background-color: gray;
-      cursor: not-allowed;
+    button:hover {
+      background-color: #008000;
     }
-    footer {
-      margin-top: 20px;
+    input {
       padding: 10px;
-      background: rgba(0, 0, 0, 0.7);
-      color: #FFF;
-      font-size: 0.9em;
-    }
-    #countdown {
-      font-size: 1.5em;
-      color: #00FF00;
-      font-weight: bold;
-      margin-top: 10px;
+      width: 80%;
+      margin: 10px auto;
+      border: 1px solid #00FF00;
+      border-radius: 5px;
     }
   </style>
 </head>
 <body>
-  <h1>Elder Pepe ($ELDER)</h1>
-  <p class="description">
-    La meme coin che unisce la saggezza e l'esperienza al futuro della blockchain!  
-    Elder Pepe è più di una cripto: è un simbolo di connessione tra passato e futuro.
-  </p>
-  
-  <!-- Prima immagine principale -->
-  <img src="https://raw.githubusercontent.com/mpepe34/METAPEPE-NERD-WEBSITE-/main/Images/file-HRz4SN6hm5C2hkqiq5mp25.webp" alt="Elder Pepe Logo" width="300">
+  <h1>Elder Pepe Staking</h1>
+  <p>Staka i tuoi $ELDER token e guadagna ricompense!</p>
 
-  <!-- Sezione Chi siamo -->
-  <div class="section">
-    <h2>Chi siamo</h2>
-    <p>
-      Elder Pepe è nato dalla community per la community. Dietro il progetto c'è un team di appassionati di blockchain, meme culture e innovazione.  
-      Il nostro obiettivo? Portare saggezza e divertimento nel mondo crypto!
-    </p>
+  <div class="section" id="staking">
+    <h2>Programma di Staking</h2>
+    <p>Inserisci l'importo dei token $ELDER da stakare:</p>
+    <input type="number" id="stake-amount" placeholder="Inserisci importo">
+    <button id="stake-button">Staka Token</button>
+    <button id="unstake-button">Ritira Token</button>
+    <p id="staking-info">Caricamento informazioni sullo staking...</p>
   </div>
 
-  <!-- Timer per Mint NFT -->
-  <div class="section">
-    <h2>Mint Countdown</h2>
-    <p id="countdown"></p>
-  </div>
+  <script type="module">
+    import { ThirdwebSDK } from "https://cdn.jsdelivr.net/npm/@thirdweb-dev/sdk@latest/dist/browser.esm.js";
 
-  <!-- Sezione Tokenomics -->
-  <div class="section">
-    <h2>Tokenomics</h2>
-    <p>Total Supply: 40,000,000,000,000,000,000 $ELDER</p>
-    <p>
-      - Community: 60%<br>
-      - Liquidità: 20%<br>
-      - Team: 10%<br>
-      - Marketing: 10%
-    </p>
-    <a href="https://github.com/mpepe34/METAPEPE-NERD-WEBSITE-/raw/main/Documents/ElderPepe_Tokenomics.pdf" download>Scarica la Tokenomics</a>
-  </div>
+    // Configurazione del contratto e della rete
+    const sdk = new ThirdwebSDK("polygon");
+    const stakingContractAddress = "0x0a082ac78a8DF98d1F8F567e71321B3d1B36e8D1"; // Indirizzo del contratto di staking
+    const stakingContract = await sdk.getContract(stakingContractAddress);
 
-  <!-- Seconda immagine -->
-  <div class="section">
-    <img src="https://raw.githubusercontent.com/mpepe34/METAPEPE-NERD-WEBSITE-/main/Images/file-WLCitRs2Vva5SuMKMJDpq3.webp" alt="Elder Pepe on Bench" width="300">
-    <p>Un Elder Pepe riflette sulla sua saggezza e sul viaggio attraverso la blockchain.</p>
-  </div>
+    // Elementi HTML
+    const stakeButton = document.getElementById("stake-button");
+    const unstakeButton = document.getElementById("unstake-button");
+    const stakeAmountInput = document.getElementById("stake-amount");
+    const stakingInfo = document.getElementById("staking-info");
 
-  <!-- Sezione Tokencomics -->
-  <div class="section">
-    <h2>Scarica il Tokencomics</h2>
-    <p>Scopri i dettagli completi del progetto Elder Pepe con il nostro Tokencomics ufficiale.</p>
-    <a href="https://github.com/mpepe34/METAPEPE-NERD-WEBSITE-/raw/main/Documents/ElderPepe_Tokencomics.pdf" download>Scarica il PDF del Tokencomics</a>
-  </div>
-
-  <!-- Footer -->
-  <footer>
-    <p>&copy; 2025 Elder Pepe Project. Tutti i diritti riservati. | Disclaimer: Questo sito è a scopo informativo e non rappresenta un consiglio finanziario.</p>
-  </footer>
-
-  <!-- Script per il Timer -->
-  <script>
-    const countDownDate = new Date("2025-02-01T00:00:00").getTime();
-    const countdownElement = document.getElementById("countdown");
-
-    const timer = setInterval(() => {
-      const now = new Date().getTime();
-      const distance = countDownDate - now;
-
-      if (distance < 0) {
-        clearInterval(timer);
-        countdownElement.innerHTML = "Mint NFT ora disponibile!";
-      } else {
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-        countdownElement.innerHTML = `Mint disponibile in: ${days}g ${hours}h ${minutes}m ${seconds}s`;
+    // Funzione per stakare token
+    stakeButton.addEventListener("click", async () => {
+      const amount = stakeAmountInput.value;
+      try {
+        await stakingContract.call("stake", [amount]);
+        alert("Staking effettuato con successo!");
+        updateStakingInfo();
+      } catch (error) {
+        console.error("Errore durante lo staking:", error);
+        alert("Errore durante lo staking.");
       }
-    }, 1000);
+    });
+
+    // Funzione per ritirare token stakati
+    unstakeButton.addEventListener("click", async () => {
+      try {
+        await stakingContract.call("withdraw");
+        alert("Token ritirati con successo!");
+        updateStakingInfo();
+      } catch (error) {
+        console.error("Errore durante il ritiro:", error);
+        alert("Errore durante il ritiro.");
+      }
+    });
+
+    // Funzione per mostrare informazioni sullo staking
+    async function updateStakingInfo() {
+      try {
+        const account = await sdk.wallet.getAddress();
+        const stakeInfo = await stakingContract.call("getStakeInfo", [account]);
+        stakingInfo.textContent = `
+          Token stakati: ${stakeInfo[0]}
+          Ricompense accumulate: ${stakeInfo[1]}
+        `;
+      } catch (error) {
+        console.error("Errore nel recupero delle informazioni di staking:", error);
+        stakingInfo.textContent = "Impossibile recuperare le informazioni.";
+      }
+    }
+
+    // Aggiorna le informazioni sullo staking
+    setInterval(updateStakingInfo, 10000); // Aggiorna ogni 10 secondi
+    updateStakingInfo(); // Aggiorna subito
   </script>
 </body>
 </html>
