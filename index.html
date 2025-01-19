@@ -105,6 +105,7 @@
   <div class="section">
     <h2>Mint MetaPepe Nerd NFT</h2>
     <p>Conia il tuo NFT unico di MetaPepe Nerd e unisciti alla nostra community esclusiva!</p>
+    <p>Il mint sarà disponibile dal <strong>24 gennaio 2025 alle 11:30</strong>. Torna presto per coniare il tuo NFT esclusivo!</p>
     <button onclick="mintNFT()">Conia il tuo NFT</button>
     <p id="status"></p>
   </div>
@@ -133,8 +134,12 @@
 
         document.getElementById("status").innerText = `NFT Mintato con successo! TX: ${tx.receipt.transactionHash}`;
       } catch (error) {
+        if (error.message.includes("Claim phase has not started")) {
+          document.getElementById("status").innerText = "Il mint non è ancora disponibile. Torna il 24 gennaio 2025 alle 11:30.";
+        } else {
+          document.getElementById("status").innerText = "Errore durante il mint.";
+        }
         console.error("Errore durante il mint:", error);
-        document.getElementById("status").innerText = "Errore durante il mint.";
       }
     }
   </script>
