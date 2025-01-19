@@ -68,21 +68,11 @@
       color: #FFF;
       font-size: 0.9em;
     }
-    @media (max-width: 768px) {
-      h1 {
-        font-size: 1.5em;
-      }
-      p.description {
-        font-size: 1em;
-      }
-      .section {
-        padding: 10px;
-        margin: 10px auto;
-      }
-    }
-    .dark-mode {
-      background: #000;
-      color: #FFF;
+    #countdown {
+      font-size: 1.5em;
+      color: #00FF00;
+      font-weight: bold;
+      margin-top: 10px;
     }
   </style>
 </head>
@@ -124,6 +114,12 @@
     <a href="https://github.com/mpepe34/METAPEPE-NERD-WEBSITE-/raw/main/Documents/ElderPepe_Tokenomics.pdf" download>Scarica la Tokenomics</a>
   </div>
 
+  <!-- Seconda immagine -->
+  <div class="section">
+    <img src="https://raw.githubusercontent.com/mpepe34/METAPEPE-NERD-WEBSITE-/main/Images/file-WLCitRs2Vva5SuMKMJDpq3.webp" alt="Elder Pepe on Bench" width="300">
+    <p>Un Elder Pepe riflette sulla sua saggezza e sul viaggio attraverso la blockchain.</p>
+  </div>
+
   <!-- Sezione Tokencomics -->
   <div class="section">
     <h2>Scarica il Tokencomics</h2>
@@ -131,41 +127,9 @@
     <a href="https://github.com/mpepe34/METAPEPE-NERD-WEBSITE-/raw/main/Documents/ElderPepe_Tokencomics.pdf" download>Scarica il PDF del Tokencomics</a>
   </div>
 
-  <!-- Sezione Utility -->
-  <div class="section">
-    <h2>Utility di $ELDER</h2>
-    <p>
-      - Staking per guadagnare ricompense<br>
-      - Acquisto di NFT esclusivi<br>
-      - Accesso a eventi e contenuti unici<br>
-      - Governance: vota sulle decisioni del progetto
-    </p>
-  </div>
-
-  <!-- Sezione Roadmap -->
-  <div class="section">
-    <h2>Roadmap</h2>
-    <ul style="text-align: left;">
-      <li><strong>Fase 1:</strong> Creazione e lancio della community Elder Pepe</li>
-      <li><strong>Fase 2:</strong> Prevendita esclusiva</li>
-      <li><strong>Fase 3:</strong> Lancio NFT esclusivi "Elder Pepe" per gli early adopter</li>
-      <li><strong>Fase 4:</strong> Integrazione P2E (Play-to-Earn) con staking di NFT</li>
-      <li><strong>Fase 5:</strong> Espansione del progetto con partnership strategiche</li>
-    </ul>
-  </div>
-
-  <!-- Sezione Social -->
-  <div class="section">
-    <h2>Unisciti alla nostra community</h2>
-    <a href="https://twitter.com/elderpepe" target="_blank">Twitter</a> |
-    <a href="https://t.me/elderpepe" target="_blank">Telegram</a> |
-    <a href="https://discord.com/elderpepe" target="_blank">Discord</a>
-  </div>
-
   <!-- Footer -->
   <footer>
     <p>&copy; 2025 Elder Pepe Project. Tutti i diritti riservati. | Disclaimer: Questo sito è a scopo informativo e non rappresenta un consiglio finanziario.</p>
-    <button id="darkModeToggle">Modalità Notte</button>
   </footer>
 
   <!-- Script per il Timer -->
@@ -189,11 +153,6 @@
         countdownElement.innerHTML = `Mint disponibile in: ${days}g ${hours}h ${minutes}m ${seconds}s`;
       }
     }, 1000);
-
-    // Modalità Notte
-    document.getElementById("darkModeToggle").addEventListener("click", () => {
-      document.body.classList.toggle("dark-mode");
-    });
   </script>
 </body>
 </html>
